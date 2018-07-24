@@ -138,12 +138,13 @@ static void IMU(){{
   int16_t my=-(Mag[1]<<8 | Mag[0]);
   int16_t mz=-(Mag[5]<<8 | Mag[4]);
 
-  Serial.println("{\"metrics\":{\
+  Serial.println("{\"type\": \"metrics\", \"data\": {\
     \"accelerometer\": {\"x\":"+String(ax)+", \"y\":"+String(ay)+", \"z\":"+String(az)+"},\
     \"gyroscope\": {\"x\":"+String(gx)+", \"y\":"+String(gy)+", \"z\":"+String(gz)+"},\
     \"magnetometer\": {\"x\":"+String(mx)+", \"y\":"+String(my)+", \"z\":"+String(mz)+"}\
   }}#");
 }}
+
 
 static void GPS(){
   bool newData = false;
@@ -178,7 +179,7 @@ static void GPS(){
           gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
           gps.stats(&chars, &sentences, &failed_checksum);
 
-          Serial.println("{\"gps\":{\
+          Serial.println("{\"type\": \"gps\", \"data\": {\
             \"latitude\":"+String(latitude, 7)+",\
             \"longitude\":"+String(longitude, 7)+",\
             \"f_altitude\":"+String(gps.f_altitude())+",\
