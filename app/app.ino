@@ -4,7 +4,6 @@
 #include <TinyGPS.h>
 #include <SoftwareSerial.h>
 #include <Adafruit_Sensor.h>
-#include <SoftwareSerial.h>
 
 #define MPU9250_ADDRESS 0x68
 #define MAG_ADDRESS 0x0C
@@ -138,11 +137,11 @@ static void IMU(){{
   int16_t my=-(Mag[1]<<8 | Mag[0]);
   int16_t mz=-(Mag[5]<<8 | Mag[4]);
 
-  Serial.println("{\"type\": \"metrics\", \"data\": {\
+  Serial.println("{\"type\": \"imu\", \"data\": {\
     \"accelerometer\": {\"x\":"+String(ax)+", \"y\":"+String(ay)+", \"z\":"+String(az)+"},\
     \"gyroscope\": {\"x\":"+String(gx)+", \"y\":"+String(gy)+", \"z\":"+String(gz)+"},\
     \"magnetometer\": {\"x\":"+String(mx)+", \"y\":"+String(my)+", \"z\":"+String(mz)+"}\
-  }}#");
+  }}");
 }}
 
 
@@ -186,7 +185,7 @@ static void GPS(){
             \"f_course\": "+String(gps.f_course())+",\
             \"f_speed_kmph\": "+String(gps.f_speed_kmph())+",\
             \"satellites\": "+String(gps.satellites())+"\
-          }}#");
+          }}");
         }
       }
     }
